@@ -1,0 +1,27 @@
+version: "3"
+
+dotenv:
+  - ".env"
+
+tasks:
+  dev:
+    desc: "Start development server"
+    cmd: air
+
+  lint:
+    desc: "Run linter"
+    cmd: golangci-lint run ./...
+
+  build:
+    desc: "Build binary"
+    cmd: go build -o ./bin/{{.APP_NAME}} ./cmd/http/main.go
+    requires:
+      vars:
+        - APP_NAME
+
+  start:
+    desc: "Start binary"
+    cmd: ./bin/{{.APP_NAME}}
+    requires:
+      vars:
+        - APP_NAME
