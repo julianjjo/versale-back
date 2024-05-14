@@ -4,10 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/julianjjo/versasale-back/internal/core/util"
 )
 
 func GetProduct(c *gin.Context) {
 	productId := c.Param("productId")
+	if productId == "" && !util.IsValidUUID(productId) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
 		"data": gin.H{
