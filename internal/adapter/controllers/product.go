@@ -7,16 +7,34 @@ import (
 )
 
 func GetProduct(c *gin.Context) {
+	productId := c.Param("productId")
+	c.JSON(http.StatusOK, gin.H{
+		"status": http.StatusOK,
+		"data": gin.H{
+			"id":            productId,
+			"name":          "Producto 1",
+			"price":         1000,
+			"stock":         10,
+			"description":   "Producto 1 descripción",
+			"product_image": "https://via.placeholder.com/200",
+			"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
+		},
+	},
+	)
+}
+
+func GetProducts(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
 		"data": []gin.H{
 			{
 				"id":            "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
-				"name":          "Product 1",
+				"name":          "Producto 1",
 				"price":         1000,
 				"stock":         10,
-				"description":   "Product 1 description",
+				"description":   "Producto 1 descripción",
 				"product_image": "https://via.placeholder.com/200",
+				"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
 			},
 			{
 				"id":            "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
@@ -25,6 +43,7 @@ func GetProduct(c *gin.Context) {
 				"stock":         20,
 				"product_image": "https://via.placeholder.com/200",
 				"description":   "Product 2 description",
+				"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
 			},
 			{
 				"id":            "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
@@ -33,6 +52,7 @@ func GetProduct(c *gin.Context) {
 				"stock":         30,
 				"product_image": "https://via.placeholder.com/200",
 				"description":   "Product 3 description",
+				"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
 			},
 			{
 				"id":            "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
@@ -41,6 +61,7 @@ func GetProduct(c *gin.Context) {
 				"stock":         40,
 				"product_image": "https://via.placeholder.com/200",
 				"description":   "Product 4 description",
+				"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
 			},
 			{
 				"id":            "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
@@ -49,6 +70,7 @@ func GetProduct(c *gin.Context) {
 				"stock":         50,
 				"product_image": "https://via.placeholder.com/200",
 				"description":   "Product 5 description",
+				"category":      "ce2d247f-80a8-4ca5-a646-90ec49311a7f",
 			},
 		},
 	},
