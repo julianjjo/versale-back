@@ -13,7 +13,11 @@ import (
 func DocumentType(c *gin.Context) {
 	c.Set("status", "success")
 
-	client, _ := c.MustGet("client").(*mongo.Client)
+	client, ok := c.MustGet("client").(*mongo.Client)
+	if !ok || client == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database connection not available"})
+		return
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
