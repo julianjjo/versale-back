@@ -12,7 +12,6 @@ import (
 
 func SaveCustomer(client *mongo.Client, ctx context.Context, customer model.Customer) error {
 	err := repository.SaveToMongoDB(client, ctx, "Customer", customer)
-	fmt.Println(err)
 	if err != nil {
 		return err
 	}
@@ -49,6 +48,5 @@ func DocumentIdExists(client *mongo.Client, ctx context.Context, documentId stri
 		}
 		return false, err
 	}
-	fmt.Println(err)
 	return true, nil
 }

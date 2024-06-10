@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -32,7 +31,6 @@ func RegisterCustomer(c *gin.Context) {
 	// Validate unique email
 	exists, err := service.EmailExists(client, ctx, customer.Email, "Customer")
 	if err != nil {
-		fmt.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 		return
 	}
@@ -44,7 +42,6 @@ func RegisterCustomer(c *gin.Context) {
 	// Validate unique DocumentId
 	exists, err = service.DocumentIdExists(client, ctx, customer.DocumentId, "Customer")
 	if err != nil {
-		fmt.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error checking DocumentId"})
 		return
 	}
@@ -91,7 +88,6 @@ func RegisterSeller(c *gin.Context) {
 	// Validate unique email
 	exists, err := service.EmailExists(client, ctx, seller.Email, "Seller")
 	if err != nil {
-		fmt.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 		return
 	}
@@ -103,7 +99,6 @@ func RegisterSeller(c *gin.Context) {
 	// Validate unique DocumentId
 	exists, err = service.DocumentIdExists(client, ctx, seller.DocumentId, "Seller")
 	if err != nil {
-		fmt.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 		return
 	}
