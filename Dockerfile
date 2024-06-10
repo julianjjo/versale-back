@@ -11,7 +11,8 @@ COPY . .
 RUN go mod download
 
 # build binary
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./bin/versale ./cmd/http/main.go
+RUN go mod download && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./bin/versale ./cmd/http/main.go
 
 # final stage
 FROM alpine:latest AS final
