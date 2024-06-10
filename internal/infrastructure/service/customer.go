@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 
 	model "github.com/julianjjo/versasale-back/internal/core/model"
 	repository "github.com/julianjjo/versasale-back/internal/infrastructure/repository"
@@ -35,7 +34,6 @@ func EmailExists(client *mongo.Client, ctx context.Context, email string, collec
 }
 
 func DocumentIdExists(client *mongo.Client, ctx context.Context, documentId string, collection string) (bool, error) {
-	fmt.Println("DocumentIdExists()")
 	collectionRef := client.Database("versasale").Collection(collection)
 	filter := bson.M{"document_id": documentId}
 
@@ -43,7 +41,6 @@ func DocumentIdExists(client *mongo.Client, ctx context.Context, documentId stri
 	err := collectionRef.FindOne(ctx, filter).Decode(&result)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			fmt.Println("DocumentId does not exist")
 			return false, nil
 		}
 		return false, err

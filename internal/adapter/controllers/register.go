@@ -65,7 +65,7 @@ func RegisterCustomer(c *gin.Context) {
 		return
 	}
 
-	customer.Password = "secret" // Do not return the password
+	customer.Password = "secret"
 
 	c.JSON(http.StatusOK, customer)
 }
