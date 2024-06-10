@@ -30,6 +30,7 @@ func SetupRouter(client *mongo.Client, ctx context.Context) *gin.Engine {
 		public.GET("/product", controllers.GetProducts)
 		public.GET("/product/:productId", controllers.GetProduct)
 		public.POST("/product", controllers.CreateProduct)
+		public.GET("/type-document", controllers.DocumentType)
 	}
 
 	return router

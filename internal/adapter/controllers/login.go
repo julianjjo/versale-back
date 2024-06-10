@@ -12,6 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 
+	"github.com/julianjjo/versasale-back/internal/core/model"
 	config "github.com/julianjjo/versasale-back/internal/infrastructure/config"
 	service "github.com/julianjjo/versasale-back/internal/infrastructure/service"
 )
@@ -44,7 +45,7 @@ func LoginCustomer(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	var customer service.Customer // Assuming the user can be a customer, adapt if needed
+	var customer model.Customer
 	errMongoDB := client.Database("versasale").Collection("customer").FindOne(ctx, bson.M{"email": loginData.Email}).Decode(&customer)
 	if errMongoDB != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
@@ -61,7 +62,7 @@ func LoginCustomer(c *gin.Context) {
 		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(config.HTTP.Secret))
+	tokenString, _ := token.SignedString([]byte(config.HTTP.Secret))
 
 	responseLogin.Menssage = "Login successful"
 	responseLogin.Token = tokenString
@@ -82,7 +83,7 @@ func LoginSeller(c *gin.Context) {
 		return
 	}
 
-	var seller service.Seller // Assuming the user can be a seller, adapt if needed
+	var seller model.Seller
 	err := client.Database("versasale").Collection("customer").FindOne(ctx, bson.M{"email": loginData.Email}).Decode(&seller)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
